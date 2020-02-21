@@ -1,0 +1,10 @@
+# node_modules
+# .idea
+# !tests/reports/output/html/sample.html
+# !tests/reports/output/json/sample.json
+# !tests/reports/output/performance/performanceGraphs.html
+# tests/reports/output/html/*.html
+# tests/reports/output/json/*.json
+# tests/reports/selenium-server-logs
+# mockserver.log
+# *.temp

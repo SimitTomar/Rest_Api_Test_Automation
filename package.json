@@ -1,0 +1,31 @@
+{
+  "name": "rest_api_test_automation",
+  "version": "1.0.0",
+  "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
+  "main": "index.js",
+  "scripts": {
+    "mocha_test": "mocha tests_mocha --reporter mochawesome",
+    "cucumber_test": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/*.feature",
+    "test": "node tests_cucumber/config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimitTomar/Rest_Api_Test_Automation.git"
+  },
+  "author": "Simit Tomar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimitTomar/Rest_Api_Test_Automation/issues"
+  },
+  "homepage": "https://github.com/SimitTomar/Rest_Api_Test_Automation#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "cucumber": "^6.0.5",
+    "mocha": "^7.0.1",
+    "mochawesome": "^4.1.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "joi": "^14.3.1"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "customerDetailsFinder",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "AccountNumber": {
+      "type": "number",
+      "required": true
+    },
+    "SortCode": {
+      "type": "number",
+      "required": true
+    },
+    "ProductType": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

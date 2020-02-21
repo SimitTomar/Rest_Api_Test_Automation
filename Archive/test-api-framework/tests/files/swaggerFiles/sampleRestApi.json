@@ -1,0 +1,384 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1.0",
+    "title": "Sample API information Data",
+    "description": "Swagger specification for Sample API"
+  },
+  "host": "api.lbg.xyz",
+  "basePath": "/localhost",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Endpoint for getting Customer Info"
+    }
+  ],
+  "paths": {
+    "/customerDetails": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Gets Customer records",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccountNumber",
+            "in": "query",
+            "description": "Account number",
+            "required": true,
+            "pattern": "^[0-9]{8}$",
+            "type": "string"
+          },
+          {
+            "name": "SortCode",
+            "in": "query",
+            "description": "Sort Code",
+            "type": "string",
+            "required": true,
+            "pattern": "^[0-9]{6}$"
+          },
+          {
+            "name": "ProductCategory",
+            "in": "query",
+            "description": "Product Category (BCA/PCA)",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "BCA",
+              "PCA"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with `Products` data",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header",
+                "default": "max-age=0"
+              },
+              "Etag": {
+                "type": "string",
+                "description": "A unique ID identifying whether this resource has changed"
+              },
+              "Cache-Control": {
+                "type": "string",
+                "description": "Describes how long this response can be cached",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/PartyDetails"
+            }
+          },
+          "400": {
+            "description": "The requested operation will not be carried out",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              },
+              "Status Code": {
+                "type": "integer",
+                "description": "The HTTP status code defining the error",
+                "default": 400
+              }
+            },
+            "schema": {
+              "title": "400 Bad Request",
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "string",
+                      "enum": [
+                        "400"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Account Request has malformed, missing or non-compliant JSON body or URL parameters"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The operation was refused access.",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              },
+              "Status Code": {
+                "type": "integer",
+                "description": "The HTTP status code defining the error",
+                "default": 401
+              }
+            },
+            "schema": {
+              "title": "401 Unauthorized",
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "string",
+                      "enum": [
+                        "404"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Authorization header missing or invalid token"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The operation was refused access.",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              },
+              "Status Code": {
+                "type": "integer",
+                "description": "The HTTP status code defining the error",
+                "default": 403
+              }
+            },
+            "schema": {
+              "title": "403 Forbidden",
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "string",
+                      "enum": [
+                        "403"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Token invalid, has incorrect scope or a security policy was violated"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The operation failed.",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              },
+              "Status Code": {
+                "type": "integer",
+                "description": "The HTTP status code defining the error",
+                "default": 500
+              }
+            },
+            "schema": {
+              "title": "500 Error object",
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "string",
+                      "enum": [
+                        "500"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Something went wrong on the API gateway or micro-service"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "A standard error response.",
+            "headers": {
+              "Strict-Transport-Security": {
+                "type": "string",
+                "description": "HTTPS strict transport security header"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "description": "Prevent this request from being loaded in any iframes",
+                "default": "DENY"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "description": "Ensures each page has a content type and prevents browsers from doing MIME type sniffing",
+                "default": "nosniff"
+              },
+              "Status Code": {
+                "type": "integer",
+                "description": "The HTTP status code defining the error",
+                "default": 400
+              }
+            },
+            "schema": {
+              "title": "Error object",
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "description": "This corresponds to the HTTP status code",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Further details describing the error",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PartyDetails": {
+      "type": "object",
+      "properties": {
+        "Party Details": {
+          "type": "object",
+          "properties": {
+            "AccountNumber": {
+              "description": "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "SortCode": {
+              "description": "Sort code",
+              "type": "string"
+            },
+            "Name": {
+              "description": "Name",
+              "type": "string"
+            },
+            "Available Balance": {
+              "description": "Available Balance",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
