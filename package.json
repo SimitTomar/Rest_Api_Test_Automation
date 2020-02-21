@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "mocha_test": "mocha tests_mocha --reporter mochawesome",
-    "cucumber_test": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/*.feature",
-    "test": "node tests_cucumber/config.js"
+    "cucumber_test": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/*.feature"
   },
   "repository": {
     "type": "git",
