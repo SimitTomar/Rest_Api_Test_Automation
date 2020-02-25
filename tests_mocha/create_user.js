@@ -5,6 +5,8 @@ const expect = require('chai').expect;
 let baseURL = supertest("https://reqres.in");
 let list_users = "/api/users";
 
+console.log('simProcess: ', process.env.name);
+
 describe('POST Request',()=>{
     let post_resp;
     it('makes a POST call ',async ()=>{
