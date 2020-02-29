@@ -5,24 +5,24 @@ class CreateUserBuilder {
 
     /* Generate Default Fields for a User */
     populateDefaultFields() {
-        this.lastName = 'TomarX'
-        this.job = 'Manager'
-        return this
+        this.lastName = 'Tomar'
+        this.job = 'Sr. Manager'
+        return this;
     }
 
     withFirstName(firstName) {
         this.firstName = firstName
-        return this
+        return this;
     }
 
     withLastName(lastName) {
         this.lastName = lastName
-        return this
+        return this;
     }
 
     withJob(job) {
         this.job = job
-        return this
+        return this;
     }
 
     build() {
@@ -31,7 +31,6 @@ class CreateUserBuilder {
         if (!('firstName' in this)) {
             throw new Error('firstName is missing');
         }
-
 
         return new CreateUser(this);
     }

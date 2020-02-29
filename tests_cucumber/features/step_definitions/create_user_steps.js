@@ -1,9 +1,7 @@
 try {
     const supertest = require('supertest');
     const expect = require('chai').expect;
-    const nock = require('nock');
-    const CreateUserBuilder = require('../../builder/create_user_builder');
-    const CreateUserDirector = require('../../director/create_user_director');
+    const CreateUserBuilder = require('../../builders/create_user_builder');
     const { Given, When, Then } = require('cucumber');
 
     const baseURL = supertest("https://reqres.in");
@@ -17,13 +15,14 @@ try {
             .build();
     });
 
+    
+
     When(/^I make a request for user creation$/, async () => {
         
         this.scenarioContext = await baseURL.post(list_users)
         .type('form')
         .send(this.createUserBody)
         .set('Accept','/application/\json/');
-
         await (console.log('New User', this.scenarioContext.body));
 
     });

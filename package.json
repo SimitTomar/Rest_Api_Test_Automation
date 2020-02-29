@@ -4,7 +4,7 @@
   "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
   "main": "index.js",
   "scripts": {
-    "mocha_test": "name=Simit mocha tests_mocha --reporter mochawesome",
+    "mocha_test": "mocha tests_mocha --reporter mochawesome",
     "cucumber_test": "name=Simit ./node_modules/.bin/cucumber-js tests_cucumber/features/**/*.feature",
     "test": "node tests_cucumber/config.js --CUCUMBER_COMMAND=tests_cucumber/features/**/*.feature"
   },
@@ -30,6 +30,7 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "joi": "^14.3.1",
+    "mocha-param": "^2.0.0",
     "util": "^0.12.1"
   }
 }

@@ -11,7 +11,7 @@ describe('First Request to Get Users',()=>{
     let res;
     it("See Response", async function () {
         res = await baseURL.get(list_users); //Sending the GET request
-        console.log(res.body);
+        // console.log(res.body);
     });
 
     it('checks that the response was OK',async()=>{
@@ -27,13 +27,13 @@ describe('First Request to Get Users',()=>{
     });
 
     it('prints length of data array',async()=>{
-        await (console.log(res.body.data.length));
+        // await (console.log(res.body.data.length));
     });
 
     it('gets the id from the array',async()=>{
          for(let i=0;i<res.body.data.length;i++){
-            await(console.log(res.body.data[i].id));
-            await (console.log(res.body.data[i].first_name));
+            // await(console.log(res.body.data[i].id));
+            // await (console.log(res.body.data[i].first_name));
          }
     });
 

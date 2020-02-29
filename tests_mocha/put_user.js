@@ -15,6 +15,6 @@ describe('PUT Request', () => {
             })
             .set('Accept', '/application/\json/');
 
-        await (console.log(put_resp.body));
+        // await (console.log(put_resp.body));
     });
 });

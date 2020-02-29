@@ -10,7 +10,7 @@ describe('DELETE Request', () => {
     it('makes a delete call ', async () => {
         del_resp = await baseURL.delete(list_users);
 
-        await (console.log(del_resp.body));
+        // await (console.log(del_resp.body));
     });
 
     it('asserts that the response code is 204',async()=>{

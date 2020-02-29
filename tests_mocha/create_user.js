@@ -1,20 +1,30 @@
 const supertest = require('supertest');
 const expect = require('chai').expect;
+var itParam = require('mocha-param');
 
 
 let baseURL = supertest("https://reqres.in");
 let list_users = "/api/users";
 
-console.log('simProcess: ', process.env.name);
+var myData = [
+    { name: 'rob', job: 'receptionist' }, 
+    { name: 'sally', job: 'painter' },
+    { name: 'simit', job: 'architect', domain: 'testing' }
+];
 
 describe('POST Request',()=>{
     let post_resp;
-    it('makes a POST call ',async ()=>{
+    itParam('makes a POST call with name ${value.name} and title ${value.job}', myData, async (person)=>{
+
+        console.log('name', person.name);
+        console.log('job', person.job);
+        console.log('domain', person.domain);
+
         post_resp = await baseURL.post(list_users)
         .type('form')
         .send({
-                "name": "morpheus",
-                "job": "leader"
+                "name": person.name,
+                "job": person.job
         })
         .set('Accept','/application/\json/');
 

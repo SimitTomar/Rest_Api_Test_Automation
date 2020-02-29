@@ -1,6 +1,6 @@
 @smoke @regression
 
-Feature: As the application Admin, I should be able to create a new application user
+Feature: As an application Admin, I should be able to create a new application user
 
 @test1
 Scenario: Create a new application user
