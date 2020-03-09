@@ -5,32 +5,46 @@ class CreateUserBuilder {
 
     /* Generate Default Fields for a User */
     populateDefaultFields() {
-        this.lastName = 'Tomar'
-        this.job = 'Sr. Manager'
+        this.name = "NoName";
+        this.emailId = "noName@sapient.com"
+        this.gender = "Male";
+        this.title = "Associate";
+        this.currentSalary = 30000;
+        this.experience = 10;
         return this;
     }
 
-    withFirstName(firstName) {
-        this.firstName = firstName
+    withname(name) {
+        this.name = name
         return this;
     }
 
-    withLastName(lastName) {
-        this.lastName = lastName
+    withemailId(emailId) {
+        this.emailId = emailId
         return this;
     }
 
-    withJob(job) {
-        this.job = job
+    withgender(gender) {
+        this.gender = gender
+        return this;
+    }
+
+    withtitle(title) {
+        this.title = title
+        return this;
+    }
+
+    withcurrentSalary(currentSalary) {
+        this.currentSalary = currentSalary
+        return this;
+    }
+
+    withexperience(experience) {
+        this.experience = experience
         return this;
     }
 
     build() {
-
-        // Throw Error in case Mandatory Fields are missing
-        if (!('firstName' in this)) {
-            throw new Error('firstName is missing');
-        }
 
         return new CreateUser(this);
     }
