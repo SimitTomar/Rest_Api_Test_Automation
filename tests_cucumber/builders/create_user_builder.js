@@ -5,17 +5,16 @@ class CreateUserBuilder {
 
     /* Generate Default Fields for a User */
     populateDefaultFields() {
-        this.name = "NoName";
+        this.employeeName = "NoName";
         this.emailId = "noName@sapient.com"
         this.gender = "Male";
         this.title = "Associate";
         this.currentSalary = 30000;
-        this.experience = 10;
         return this;
     }
 
-    withname(name) {
-        this.name = name
+    withEmployeeName(employeeName) {
+        this.employeeName = employeeName
         return this;
     }
 
@@ -36,11 +35,6 @@ class CreateUserBuilder {
 
     withcurrentSalary(currentSalary) {
         this.currentSalary = currentSalary
-        return this;
-    }
-
-    withexperience(experience) {
-        this.experience = experience
         return this;
     }
 

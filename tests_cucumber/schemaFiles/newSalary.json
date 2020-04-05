@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "required": [
+      "newSalary"
+  ],
+  "properties": {
+      "newSalary": {
+          "$id": "#/properties/newSalary",
+          "type": "integer",
+          "title": "The Newsalary Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+              58000
+          ]
+      }
+  }
+}

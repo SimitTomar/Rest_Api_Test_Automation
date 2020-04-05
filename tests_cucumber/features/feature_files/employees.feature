@@ -1,42 +1,56 @@
 @smoke @regression
 
-Feature: As an application Admin, I should be able to add a new employee to the records
+Feature: As an application Admin, I should be able to create a new application user
 
-    @test1
+    Scenario: Remove all the employees from database
+
+        Given I make a request to remove details of all the employees
 
     Scenario: Add a new employee to the records
 
-        Given I have a new employee with details as "Bonda", "b@c.com", "associate", "40000" and "12"
+        Given I have a new employee with details as Kate, Kate@TestZone.com, female, engineer and 50000
         When I make a request to add the employee
-        Then the new employee should be added to the records with correct details
-        And the status as "200"
-
+        Then I should have an employee with details as Kate, Kate@TestZone.com, female, engineer and 50000
+        And the status as 201
+        And the response should conform to the employees schema
 
     Scenario Outline: Add different employees with Title as Engineer, Manager, Director to the records
-        Given I have <Name>, <Email Id>, <Title>, <Current Salary> and <Experience> for an employee
-        When I make a request to add a new employee
-        Then the employee should be added to the records with correct details
-        And the status as "200"
-
-
-        Examples:
-            | Name    | Email Id      | Title    | Current Salary | Experience |
-            | Bonda   | bonda@c.com   | Engineer | 40000          | 8          |
-            | Manish  | m@sapient.com | Manager  | 90000          | 12         |
-            | Anirudh | A@sapient.com | Director | 85000          | 14         |
-
-
-    Scenario Outline: Adding employees with Invalid Title shoul return an error - "Invalid Title" with status code as 400
-        Given I have <Name>, <Email Id>, <Title>, <Current Salary> and <Experience> for an employee
-        When I make a request to add a new employee
-        Then the API should return the <Error Message>
-        And the status as "400"
-
+        Given I have a new employee with details as <Name>, <Email_Id>, <Gender>, <Title> and <Current_Salary>
+        When I make a request to add the employee
+        Then I should have an employee with details as <Name>, <Email_Id>, <Gender>, <Title> and <Current_Salary>
+        And the status as 201
+        And the response should conform to the employees schema
 
         Examples:
-            | Name    | Email Id      | Title             | Current Salary | Experience | Error Message|
-            | Anirudh | A@sapient.com | Enginr            | 85000          | 14         | Invalid Title|
-            | Bonda   | bonda@c.com   | Receptionist      | 40000          | 8          | Invalid Title|
-            | Manish  | m@sapient.com | 1234              | 90000          | 12         | Invalid Title|
-            | Anirudh | A@sapient.com | &*&*&*            | 85000          | 14         | Invalid Title|
-            | Anirudh | A@sapient.com | Asscoiate Manager | 85000          | 14         | Invalid Title|
+            | Name  | Email_Id           | Gender | Title    | Current_Salary |
+            | John  | John@TestZone.com  | male   | engineer | 40000          |
+            | Mary  | Mary@TestZone.com  | female | manager  | 60000          |
+            | Peter | Peter@TestZone.com | male   | director | 85000          |
+
+    Scenario: Get details of an employee
+
+        Given I have a new employee with details as Oliver, Oliver@TestZone.com, male, engineer and 48000
+        When I make a request to add the employee
+        And I make a request to get the employee details for Oliver
+        Then I should have an employee with details as Oliver, Oliver@TestZone.com, male, engineer and 48000
+        And the status as 200
+        And the response should conform to the employees schema
+
+    Scenario: Update details of an employee
+
+        Given I have a new employee with details as Lucy, Lucy@TestZone.com, female, engineer and 50000
+        When I make a request to add the employee
+        And the status as 201
+        And I make a request to update the title of Lucy to manager
+        Then I should have an employee with details as Lucy, Lucy@TestZone.com, female, manager and 50000
+        And the status as 200
+        And the response should conform to the employees schema
+
+    Scenario: Delete details of an employee
+
+        Given I have a new employee with details as Dave, Dave@TestZone.com, male, manager and 66000
+        When I make a request to add the employee
+        And the status as 201
+        And I make a request to delete the details of Dave
+        Then the status as 200
+        And the details for Dave should no longer exist
