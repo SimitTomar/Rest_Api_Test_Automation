@@ -37,7 +37,8 @@ try {
     });
 
     When(/^I make a request to get the employee details for (.*)$/, async (employeeName) => {
-        this.scenarioContext = await baseURL.get(list_users+ '/' + employeeName)
+        // Also shows the example of Delayed Response
+        this.scenarioContext = await baseURL.get(`${list_users}/${employeeName}?delay=5`)
         // await (console.log('Existing User', this.scenarioContext.body));
     });
 

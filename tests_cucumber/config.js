@@ -25,6 +25,3 @@ exec(COMPLETE_CLI_COMMAND, [{ env : { FORCE_COLOR: true }}], (error, stdout, std
   console.error(`stderr: ${stderr}`);
   return;
 });
-
-// let {setDefaultTimeout} = require('cucumber');
-// setDefaultTimeout(60 * 1000);

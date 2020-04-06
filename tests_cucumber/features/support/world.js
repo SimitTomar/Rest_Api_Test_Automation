@@ -1,8 +1,11 @@
-const { setWorldConstructor } = require("cucumber");
+const { setDefaultTimeout, setWorldConstructor } = require("cucumber");
+
+setDefaultTimeout(10 * 1000);
 
 class CustomWorld {
   constructor() {
     this._value = null;
+    this._createUserBody = null;
   }
 
   set scenarioContext(newValue) {
