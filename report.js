@@ -1,6 +1,8 @@
-const { removeSync } = require('fs-extra');
+// const { removeSync } = require('fs-extra');
 const reporter = require('cucumber-html-reporter');
 const currentTime = new Date().toJSON().replace(/:/g, "-");
+
+// removeSync('tests/reports/output/tmpJson/');
 
 var options = {
     theme: 'bootstrap',
