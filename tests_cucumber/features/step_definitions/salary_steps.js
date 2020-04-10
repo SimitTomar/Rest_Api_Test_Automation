@@ -31,9 +31,9 @@ try {
 
         this.createUserBody = new CreateUserBuilder()
             .populateDefaultFields()
-            .withEmployeeName('simit')
-            .withemailId('simittomar8@gmail.com')
-            .withgender('male')
+            .withEmployeeName(employeeName)
+            .withemailId('soniajasuja27@gmail.com')
+            .withgender('female')
             .withtitle('manager')
             .withcurrentSalary(80000)
             .build();
@@ -51,7 +51,7 @@ try {
 
     When(/^I make a request to calculate the new salary$/, async () => {
 
-        this.scenarioContext = await supertest(app)
+        this.scenarioContext = await supertest('http://localhost:3001')
             .get(newSalary)
             .query(queryParams)
             .set(headers)
@@ -59,7 +59,7 @@ try {
         // this.scenarioContext = await supertest('http://localhost:3000')
         //     .get(`${employees}/simit`)
 
-        // console.log('scenarioContext', this.scenarioContext);
+        console.log('scenarioContext', this.scenarioContext.body);
     });
 
     Then(/^the new salary should be (-?\d+)$/, async (expSalary) => {

@@ -4,7 +4,7 @@ Feature: As an application Admin, I should be able to calculate new salary of em
 
     Scenario: Calculate new salary of one employee
 
-        Given simit has received a performance rating of 4
+        Given sonia has received a performance rating of 4
         When I make a request to calculate the new salary
         Then the new salary should be 92000
         And the status should be 200
