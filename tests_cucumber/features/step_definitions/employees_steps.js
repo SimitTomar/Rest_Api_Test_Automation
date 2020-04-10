@@ -7,14 +7,14 @@ try {
     const fs = require('fs');
 
     const baseURL = supertest("http://localhost:3000/");
-    const list_users = "employees";
+    const employees = "employees";
     const schema = fs.readFileSync('tests_cucumber/schemaFiles/employees.json', 'utf8');
 
     Given(/^I make a request to remove details of all the employees$/, async () => {
-        this.scenarioContext = await baseURL.get(list_users)
+        this.scenarioContext = await baseURL.get(employees)
         
         for (let i = 0; i < this.scenarioContext.body.length; i++)
-            await baseURL.delete(list_users+ '/' + this.scenarioContext.body[i].employeeName)
+            await baseURL.delete(employees+ '/' + this.scenarioContext.body[i].employeeName)
     });
     
     Given(/^I have a new employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async (employeeName, email, gender, title, salary) => {
@@ -29,7 +29,7 @@ try {
     });
 
     When(/^I make a request to add the employee$/, async () => {
-        this.scenarioContext = await baseURL.post(list_users)
+        this.scenarioContext = await baseURL.post(employees)
         .type('form')
         .send(this.createUserBody)
         .set('Accept','/application/\json/');
@@ -38,14 +38,14 @@ try {
 
     When(/^I make a request to get the employee details for (.*)$/, async (employeeName) => {
         // Also shows the example of Delayed Response
-        this.scenarioContext = await baseURL.get(`${list_users}/${employeeName}?delay=5`)
+        this.scenarioContext = await baseURL.get(`${employees}/${employeeName}?delay=5`)
         // await (console.log('Existing User', this.scenarioContext.body));
     });
 
     When(/^I make a request to update the title of (.*) to (.*)$/, async (employeeName, newTitle) => {
         this.scenarioContext.body.title = newTitle;
 
-        this.scenarioContext = await baseURL.put(list_users + '/' + employeeName)
+        this.scenarioContext = await baseURL.put(employees + '/' + employeeName)
             .type('form')
             .send(this.scenarioContext.body)
             .set('Accept','/application/\json/');
@@ -53,7 +53,7 @@ try {
     });
 
     When(/^I make a request to delete the details of (.*)$/, async (employeeName) => {
-        this.scenarioContext = await baseURL.delete(list_users+ '/' + employeeName)
+        this.scenarioContext = await baseURL.delete(employees+ '/' + employeeName)
         // await (console.log('Deleting User', this.scenarioContext.body));
     });
 
@@ -75,7 +75,7 @@ try {
     });
 
     When(/^the details for (.*) should no longer exist$/, async (employeeName) => {        
-        this.scenarioContext = await baseURL.get(list_users + '/' + employeeName)
+        this.scenarioContext = await baseURL.get(employees + '/' + employeeName)
         await (expect(this.scenarioContext.body.message).to.eql('Employee not found with employeeName ' + employeeName + ', note that employeeName is a case senstive field'));
     });
 

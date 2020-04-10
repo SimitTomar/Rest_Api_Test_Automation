@@ -1,34 +1,65 @@
 try {
     const supertest = require('supertest');
+    const app = require('../../../RestPanda/newSalary');
     const expect = require('chai').expect;
+    const nock = require('nock');
     const ajv = require('ajv')();
     const fs = require('fs');
     const { Given, When, Then } = require('cucumber');
+    const CreateUserBuilder = require('../../builders/create_user_builder');
 
-    const baseURL = supertest("http://localhost:3000/");
-    const salary = "newSalary";
+    const employeesBaseUrl = supertest('http://localhost:3000');
+    const newSalaryBaseUrl = supertest('http://localhost:3001');
+
+
+    const employees = '/employees';
+    const newSalary = '/newSalary';
     let queryParams = {};
     let headers = {};
     const schema = fs.readFileSync('tests_cucumber/schemaFiles/newSalary.json', 'utf8');
 
-    Given(/^(.*) has received a performance rating of (-?\d+)$/, async (name, rating) => {
-        
+    Given(/^(.*) has received a performance rating of (-?\d+)$/, async (employeeName, rating) => {
+
         queryParams = {
-            employeeName: name
+            employeeName: employeeName
         };
 
         headers = {
             performanceRating: rating,
             Accept: '/application/\json/'
-        }; 
-    
+        };
+
+        this.createUserBody = new CreateUserBuilder()
+            .populateDefaultFields()
+            .withEmployeeName('simit')
+            .withemailId('simittomar8@gmail.com')
+            .withgender('male')
+            .withtitle('manager')
+            .withcurrentSalary(80000)
+            .build();
+
+        //specify the employees API url as it needs to be intercepted
+        nock('http://localhost:3000')
+            .log(console.log)
+            //define the method to be intercepted
+            .get(`${employees}/${employeeName}`)
+            // .get('/users')
+            //respond with a OK and the specified JSON response
+            .reply(200, this.createUserBody);
+
     });
 
     When(/^I make a request to calculate the new salary$/, async () => {
-        this.scenarioContext = await baseURL
-            .get(salary)
+
+        this.scenarioContext = await supertest(app)
+            .get(newSalary)
             .query(queryParams)
             .set(headers)
+
+        // this.scenarioContext = await supertest('http://localhost:3000')
+        //     .get(`${employees}/simit`)
+
+        // console.log('scenarioContext', this.scenarioContext);
     });
 
     Then(/^the new salary should be (-?\d+)$/, async (expSalary) => {
