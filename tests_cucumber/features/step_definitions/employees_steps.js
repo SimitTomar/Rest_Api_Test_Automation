@@ -5,20 +5,23 @@ try {
     const { Given, When, Then } = require('cucumber');
     const ajv = require('ajv')();
     const fs = require('fs');
+    const argv = require('yargs').argv;
 
-    const baseURL = supertest("http://localhost:3000/");
-    const employees = "employees";
+    const employeesBaseUrl = supertest("http://localhost:3000/");
+    const employeesPath = "employees";
     const schema = fs.readFileSync('tests_cucumber/schemaFiles/employees.json', 'utf8');
 
     Given(/^I make a request to remove details of all the employees$/, async () => {
-        this.scenarioContext = await baseURL.get(employees)
-        
-        for (let i = 0; i < this.scenarioContext.body.length; i++)
-            await baseURL.delete(employees+ '/' + this.scenarioContext.body[i].employeeName)
+        if (argv.env == 'real') {
+            this.scenarioContext = await employeesBaseUrl.get(employeesPath)
+
+            for (let i = 0; i < this.scenarioContext.body.length; i++)
+                await employeesBaseUrl.delete(employeesPath + '/' + this.scenarioContext.body[i].employeeName)
+        }
     });
-    
+
     Given(/^I have a new employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async (employeeName, email, gender, title, salary) => {
-        this.createUserBody =  new CreateUserBuilder()
+        this.createUserBody = new CreateUserBuilder()
             .populateDefaultFields()
             .withEmployeeName(employeeName)
             .withemailId(email)
@@ -29,31 +32,31 @@ try {
     });
 
     When(/^I make a request to add the employee$/, async () => {
-        this.scenarioContext = await baseURL.post(employees)
-        .type('form')
-        .send(this.createUserBody)
-        .set('Accept','/application/\json/');
+        this.scenarioContext = await employeesBaseUrl.post(employeesPath)
+            .type('form')
+            .send(this.createUserBody)
+            .set('Accept', '/application/\json/');
         // await (console.log('New User', this.scenarioContext.body));
     });
 
     When(/^I make a request to get the employee details for (.*)$/, async (employeeName) => {
         // Also shows the example of Delayed Response
-        this.scenarioContext = await baseURL.get(`${employees}/${employeeName}?delay=5`)
+        this.scenarioContext = await employeesBaseUrl.get(`${employeesPath}/${employeeName}?delay=5`)
         // await (console.log('Existing User', this.scenarioContext.body));
     });
 
     When(/^I make a request to update the title of (.*) to (.*)$/, async (employeeName, newTitle) => {
         this.scenarioContext.body.title = newTitle;
 
-        this.scenarioContext = await baseURL.put(employees + '/' + employeeName)
+        this.scenarioContext = await employeesBaseUrl.put(employeesPath + '/' + employeeName)
             .type('form')
             .send(this.scenarioContext.body)
-            .set('Accept','/application/\json/');
+            .set('Accept', '/application/\json/');
         // await (console.log('Amended User', this.scenarioContext.body));
     });
 
     When(/^I make a request to delete the details of (.*)$/, async (employeeName) => {
-        this.scenarioContext = await baseURL.delete(employees+ '/' + employeeName)
+        this.scenarioContext = await employeesBaseUrl.delete(employeesPath + '/' + employeeName).expect(200);
         // await (console.log('Deleting User', this.scenarioContext.body));
     });
 
@@ -74,8 +77,8 @@ try {
         await (expect(this.scenarioContext.body.currentSalary).to.eql(salary));
     });
 
-    When(/^the details for (.*) should no longer exist$/, async (employeeName) => {        
-        this.scenarioContext = await baseURL.get(employees + '/' + employeeName)
+    When(/^the details for (.*) should no longer exist$/, async (employeeName) => {
+        this.scenarioContext = await employeesBaseUrl.get(employeesPath + '/' + employeeName)
         await (expect(this.scenarioContext.body.message).to.eql('Employee not found with employeeName ' + employeeName + ', note that employeeName is a case senstive field'));
     });
 
