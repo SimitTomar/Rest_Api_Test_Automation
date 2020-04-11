@@ -10,7 +10,7 @@ var options = {
     output: `tests_cucumber/reports/html/report-${currentTime}.html`,
     reportSuiteAsScenarios: true,
     scenarioTimestamp: true,
-    launchReport: true,
+    launchReport: false,
     ignoreBadJsonFile: true
 };
 
