@@ -14,11 +14,14 @@ try {
     const mockServerClient = require('mockserver-client').mockServerClient;
     const schema = fs.readFileSync('tests_cucumber/schemaFiles/newSalary.json', 'utf8');
 
+    const Config = require('../support/config');
+    const config = new Config();
+    
     let queryParams = {},
         headers = {};
 
-    Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async (employeeName, email, gender, title, salary) => {
-        this.createUserBody = new CreateUserBuilder()
+    Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async function (employeeName, email, gender, title, salary) {
+        config.createUserBody = new CreateUserBuilder()
             .populateDefaultFields()
             .withEmployeeName(employeeName)
             .withemailId(email)
@@ -37,7 +40,7 @@ try {
                         },
                         'httpResponse': {
                             'statusCode': 200,
-                            'body': this.createUserBody,
+                            'body': config.createUserBody,
                         },
                         'times': {
                             'remainingTimes': 1,
@@ -52,15 +55,15 @@ try {
                     });
             })
         } else {
-            this.scenarioContext = await employeesBaseUrl.post(employeesPath)
+            config.scenarioContext = await employeesBaseUrl.post(employeesPath)
                 .type('form')
-                .send(this.createUserBody)
+                .send(config.createUserBody)
                 .set('Accept', '/application/\json/')
                 .expect(201);
         }
     });
 
-    Given(/^(.*) has received a performance rating of (-?\d+)$/, async (employeeName, rating) => {
+    Given(/^(.*) has received a performance rating of (-?\d+)$/, async function (employeeName, rating) {
         queryParams = {
             employeeName: employeeName
         };
@@ -71,23 +74,23 @@ try {
         };
     });
 
-    When(/^I make a request to calculate the new salary$/, async () => {
-        this.scenarioContext = await newSalaryBaseUrl
+    When(/^I make a request to calculate the new salary$/, async function () {
+        config.scenarioContext = await newSalaryBaseUrl
             .get(newSalaryPath)
             .query(queryParams)
             .set(headers)
     });
 
-    Then(/^the new salary should be (-?\d+)$/, async (expSalary) => {
-        await (expect(this.scenarioContext.body.newSalary).to.eql(expSalary));
+    Then(/^the new salary should be (-?\d+)$/, async function (expSalary) {
+        await (expect(config.scenarioContext.body.newSalary).to.eql(expSalary));
     });
 
-    Then(/^the status should be (-?\d+)$/, async (statusCode) => {
-        expect(this.scenarioContext.status).to.eql(statusCode);
+    Then(/^the status should be (-?\d+)$/, async function (statusCode) {
+        expect(config.scenarioContext.status).to.eql(statusCode);
     });
 
-    Then(/^the response should conform to the newSalary schema$/, async () => {
-        let valid = ajv.validate(JSON.parse(schema), this.scenarioContext.body);
+    Then(/^the response should conform to the newSalary schema$/, async function () {
+        let valid = ajv.validate(JSON.parse(schema), config.scenarioContext.body);
         expect(valid).to.eql(true, JSON.stringify(ajv.errors, null, 2))
     });
 

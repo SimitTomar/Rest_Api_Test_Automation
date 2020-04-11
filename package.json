@@ -4,7 +4,9 @@
   "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
   "main": "index.js",
   "scripts": {
-    "mocha_test": "mocha tests_mocha --reporter mochawesome"
+    "mocha_test": "mocha tests_mocha --reporter mochawesome",
+    "tests_cucumber": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/employees.feature -f json:tests_cucumber/reports/tmpJson/report.json",
+    "report": "node report.js"
   },
   "repository": {
     "type": "git",
