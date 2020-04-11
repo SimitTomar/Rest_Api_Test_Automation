@@ -4,10 +4,7 @@
   "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
   "main": "index.js",
   "scripts": {
-    "mocha_test": "mocha tests_mocha --reporter mochawesome",
-    "test": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/salary.feature -f json:tests_cucumber/reports/tmpJson/report.json && node report.js",
-    "get_report": "node report.js",
-    "cucumber_test": "node tests_cucumber/config.js --CUCUMBER_COMMAND=tests_cucumber/features/**/*.feature && node report.js"
+    "mocha_test": "mocha tests_mocha --reporter mochawesome"
   },
   "repository": {
     "type": "git",
@@ -31,7 +28,8 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
+    "cucumber-html-reporter": "^5.2.0",
+    "gulp": "^4.0.2",
     "joi": "^14.3.1",
     "mocha-param": "^2.0.0",
     "mockserver-client": "^5.10.0",
