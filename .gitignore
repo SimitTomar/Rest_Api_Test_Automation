@@ -1,4 +1,5 @@
 .vscode
-tests/reports/*
+tests/reports/**/*.html
+tests/reports/**/*.json
 node_modules
 *.jar
