@@ -1,5 +1,3 @@
 .vscode
+tests/reports/*
 node_modules
-Archive
-rest-api-framework
-tests_cucumber/reports/*

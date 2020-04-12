@@ -4,15 +4,13 @@
   "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
   "main": "index.js",
   "scripts": {
-    "mocha_test": "mocha tests_mocha --reporter mochawesome",
-    "tests_cucumber": "./node_modules/.bin/cucumber-js tests_cucumber/features/**/employees.feature -f json:tests_cucumber/reports/tmpJson/report.json",
-    "report": "node report.js"
+    "mocha_test": "mocha tests_mocha --reporter mochawesome"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SimitTomar/Rest_Api_Test_Automation.git"
   },
-  "author": "Simit Tomar",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SimitTomar/Rest_Api_Test_Automation/issues"
@@ -21,20 +19,15 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "cucumber": "^6.0.5",
-    "fs-extra": "^9.0.0",
-    "json-server": "^0.16.1",
-    "mocha": "^7.0.1",
-    "mochawesome": "^4.1.0",
-    "mockserver-node": "^5.10.0",
-    "nock": "^12.0.1",
-    "supertest": "^4.0.2"
-  },
-  "dependencies": {
     "cucumber-html-reporter": "^5.2.0",
     "gulp": "^4.0.2",
-    "joi": "^14.3.1",
-    "mocha-param": "^2.0.0",
     "mockserver-client": "^5.10.0",
-    "util": "^0.12.1"
+    "mockserver-node": "^5.10.0",
+    "supertest": "^4.0.2",
+    "yargs": "15.3.1"
+  },
+  "dependencies": {
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
   }
 }
