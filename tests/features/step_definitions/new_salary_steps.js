@@ -6,10 +6,11 @@ const ajv = require('ajv')();
 const argv = require('yargs').argv;
 const mockServerClient = require('mockserver-client').mockServerClient;
 
-const employeesBaseUrl = "http://localhost:3000";
-const employeesPath = "/employees";
-const newSalaryBaseUrl = 'http://localhost:3001';
-const newSalaryPath = '/newSalary';
+const urlList = require('../../endpoints/endpoints.js');
+const employeesBaseUrl = urlList.employees.base;
+const employeesPath = urlList.employees.path;
+const newSalaryBaseUrl = urlList.newSalary.base;
+const newSalaryPath = urlList.newSalary.path;
 
 const schema = fs.readFileSync('tests/schemaFiles/newSalary.json', 'utf8');
 
@@ -30,7 +31,7 @@ Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/,
         .withtitle(title)
         .withcurrentSalary(salary)
         .build();
-
+    
     if (argv.env == 'mock') {
         await mockServerClient("localhost", 3000)
                 .mockAnyResponse({
@@ -46,7 +47,7 @@ Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/,
                         'remainingTimes': 1,
                         'unlimited': false
                     }
-                }).then(data => {
+                }).then(() => {
                     console.log("expectation created");
                 }).catch(error => {
                     console.log(error);

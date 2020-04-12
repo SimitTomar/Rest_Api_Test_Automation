@@ -1,3 +1,4 @@
 .vscode
 tests/reports/*
 node_modules
+*.jar

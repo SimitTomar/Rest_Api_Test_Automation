@@ -2,7 +2,7 @@
 
 Feature: As an application Admin, I should be able to create a new application user
 
-@post
+    @post
     Scenario: Add a new employee to the records
 
         Given I have a new employee with details as Kate, Kate@TestZone.com, female, engineer and 50000
@@ -11,7 +11,7 @@ Feature: As an application Admin, I should be able to create a new application u
         And the status as 201
         And the response should conform to the employees schema
 
-@post
+    @post
     Scenario Outline: Add different employees with Title as Engineer, Manager, Director to the records
         Given I have a new employee with details as <Name>, <Email_Id>, <Gender>, <Title> and <Current_Salary>
         When I make a request to add the employee
@@ -25,7 +25,7 @@ Feature: As an application Admin, I should be able to create a new application u
             | Mary  | Mary@TestZone.com  | female | manager  | 60000          |
             | Peter | Peter@TestZone.com | male   | director | 85000          |
 
-@get
+    @get
     Scenario: Get details of an employee
 
         Given I have a new employee with details as Oliver, Oliver@TestZone.com, male, engineer and 48000
@@ -35,7 +35,7 @@ Feature: As an application Admin, I should be able to create a new application u
         And the status as 200
         And the response should conform to the employees schema
 
-@put
+    @put
     Scenario: Update details of an employee
 
         Given I have a new employee with details as Lucy, Lucy@TestZone.com, female, engineer and 50000
@@ -46,7 +46,7 @@ Feature: As an application Admin, I should be able to create a new application u
         And the status as 200
         And the response should conform to the employees schema
 
-@delete
+    @delete
     Scenario: Delete details of an employee
 
         Given I have a new employee with details as Dave, Dave@TestZone.com, male, manager and 66000

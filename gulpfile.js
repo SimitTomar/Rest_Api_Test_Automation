@@ -40,7 +40,7 @@ gulp.task('test', async () => {
     });
 
     await cli.run()
-        .then(data => {
+        .then(() => {
             reporter.generate(reportOptions);
         }).catch(err => {
             throw new Error(err);

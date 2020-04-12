@@ -4,8 +4,9 @@ const rp = require('request-promise-native');
 const expect = require('chai').expect;
 const ajv = require('ajv')();
 
-const employeesBaseUrl = "http://localhost:3000";
-const employeesPath = "/employees";
+const urlList = require('../../endpoints/endpoints.js');
+const employeesBaseUrl = urlList.employees.base;
+const employeesPath = urlList.employees.path;
 const schema = fs.readFileSync('tests/schemaFiles/employees.json', 'utf8');
 
 const Config = require('../support/config');
