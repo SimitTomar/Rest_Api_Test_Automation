@@ -1,8 +1,6 @@
 const rp = require('request-promise-native');
 const argv = require('yargs').argv;
-const urlList = require('../../endpoints/endpoints');
-const employeesBaseUrl = urlList.employees.base;
-const employeesPath = urlList.employees.path;
+const {employeesBase, employeesPath} = require('../../endpoints/endpoints.js');
 const { BeforeAll } = require('cucumber');
 
 BeforeAll(async function () {
@@ -11,7 +9,7 @@ BeforeAll(async function () {
 
         let options = {
             method: 'GET',
-            uri: `${employeesBaseUrl}${employeesPath}`,
+            uri: `${employeesBase}${employeesPath}`,
             json: true,
             resolveWithFullResponse: true
         };
@@ -28,7 +26,7 @@ BeforeAll(async function () {
 
             let options = {
                 method: 'DELETE',
-                uri: employeesBaseUrl + employeesPath + '/' + employeesList[i].employeeName,
+                uri: employeesBase + employeesPath + '/' + employeesList[i].employeeName,
                 json: true,
                 resolveWithFullResponse: true
             };

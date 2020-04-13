@@ -1,26 +1,22 @@
 const { Given, When, Then } = require('cucumber');
 const fs = require('fs');
-const rp = require('request-promise-native');
 const expect = require('chai').expect;
 const ajv = require('ajv')();
 const argv = require('yargs').argv;
 const mockServerClient = require('mockserver-client').mockServerClient;
 
-const urlList = require('../../endpoints/endpoints.js');
-const employeesBaseUrl = urlList.employees.base;
-const employeesPath = urlList.employees.path;
-const newSalaryBaseUrl = urlList.newSalary.base;
-const newSalaryPath = urlList.newSalary.path;
 
+const {employeesBase, employeesPath, newSalaryBase, newSalaryPath} = require('../../endpoints/endpoints.js');
 const schema = fs.readFileSync('tests/schemaFiles/newSalary.json', 'utf8');
 
 const Config = require('../support/config');
 const config = new Config()
 const CreateUserBuilder = require('../../builders/create_user_builder');
+const sendRequest = require('../support/sendRequest');
 
 
-let queryParams = {},
-    headers = {};
+let queryParams = {};
+let headers = {};
 
 Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async function (employeeName, email, gender, title, salary) {
     config.createUserBody = new CreateUserBuilder()
@@ -54,24 +50,15 @@ Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/,
                 });
     } else {
 
-        let self = this;
-
         let options = {
             method: 'POST',
-            uri: `${employeesBaseUrl}${employeesPath}`,
+            uri: `${employeesBase}${employeesPath}`,
             body: config.createUserBody,
             json: true,
             resolveWithFullResponse: true
         };
-    
-        await rp(options)
-            .then(function (parsedBody) {
-                config.scenarioContext = parsedBody;
-            })
-            .catch(function (err) {
-                self.attach(JSON.stringify(options, null, 2), 'application/json');
-                expect.fail(err);
-            });
+
+        await sendRequest(this, config, options);
     }
 });
 
@@ -81,31 +68,21 @@ Given(/^(.*) has received a performance rating of (-?\d+)$/, async function (emp
     };
 
     headers = {
-        performanceRating: rating,
-        Accept: '/application/\json/'
+        performanceRating: rating
     };
 });
 
 When(/^I make a request to calculate the new salary$/, async function () {
 
-    let self = this;
-
     let options = {
-        uri: `${newSalaryBaseUrl}${newSalaryPath}`,
+        uri: `${newSalaryBase}${newSalaryPath}`,
         qs: queryParams,
         headers:headers,
         json: true,
         resolveWithFullResponse: true
     };
 
-    await rp(options)
-        .then(function (parsedBody) {
-            config.scenarioContext = parsedBody;
-        })
-        .catch(function (err) {
-            self.attach(JSON.stringify(options, null, 2), 'application/json');
-            expect.fail(err);
-        });
+    await sendRequest(this, config, options);
 });
 
 Then(/^the new salary should be (-?\d+)$/, async function (expSalary) {
