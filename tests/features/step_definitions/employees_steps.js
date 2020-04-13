@@ -1,10 +1,9 @@
 const { Given, When, Then } = require('cucumber');
 const fs = require('fs');
-const rp = require('request-promise-native');
 const expect = require('chai').expect;
 const ajv = require('ajv')();
 
-const {employeesBase, employeesPath} = require('../../endpoints/endpoints.js');
+const { employeesBase, employeesPath } = require('../../endpoints/endpoints.js');
 const schema = fs.readFileSync('tests/schemaFiles/employees.json', 'utf8');
 
 const Config = require('../support/config');
@@ -28,11 +27,9 @@ Given(/^I have a new employee with details as (.*), (.*), (.*), (.*) and (-?\d+)
 When(/^I make a request to add the employee$/, async function () {
 
     let options = {
-        method: 'POST',
-        uri: `${employeesBase}${employeesPath}`,
-        body: config.createUserBody,
-        json: true,
-        resolveWithFullResponse: true
+        method: 'post',
+        url: `${employeesBase}${employeesPath}`,
+        data: config.createUserBody
     };
 
     await sendRequest(this, config, options);
@@ -42,12 +39,7 @@ When(/^I make a request to add the employee$/, async function () {
 When(/^I make a request to get the employee details for (.*)$/, async function (employeeName) {
 
     let options = {
-        uri: `${employeesBase}${employeesPath}/${employeeName}`,
-        qs: {
-            delay: 1
-        },
-        json: true,
-        resolveWithFullResponse: true
+        url: `${employeesBase}${employeesPath}/${employeeName}?delay=1`,
     };
 
     await sendRequest(this, config, options);
@@ -55,14 +47,12 @@ When(/^I make a request to get the employee details for (.*)$/, async function (
 
 When(/^I make a request to update the title of (.*) to (.*)$/, async function (employeeName, newTitle) {
 
-    config.scenarioContext.body.title = newTitle;
+    config.scenarioContext.data.title = newTitle;
 
     let options = {
-        method: 'PUT',
-        uri: `${employeesBase}${employeesPath}/${employeeName}`,
-        body: config.scenarioContext.body,
-        json: true,
-        resolveWithFullResponse: true
+        method: 'put',
+        url: `${employeesBase}${employeesPath}/${employeeName}`,
+        data: config.scenarioContext.data
     };
 
     await sendRequest(this, config, options);
@@ -71,42 +61,39 @@ When(/^I make a request to update the title of (.*) to (.*)$/, async function (e
 When(/^I make a request to delete the details of (.*)$/, async function (employeeName) {
 
     let options = {
-        method: 'DELETE',
-        uri: `${employeesBase}${employeesPath}/${employeeName}`,
-        json: true,
-        resolveWithFullResponse: true
+        method: 'delete',
+        url: `${employeesBase}${employeesPath}/${employeeName}`
     };
 
     await sendRequest(this, config, options);
 });
 
-Then(/^the status as (-?\d+)$/, async function (statusCode) {
-    await (expect(config.scenarioContext.statusCode).to.eql(statusCode));
+Then(/^the status as (-?\d+)$/, async function (status) {
+    await (expect(config.scenarioContext.status).to.eql(status));
 });
 
 Then(/^the response should conform to the employees schema$/, async function () {
-    let valid = ajv.validate(JSON.parse(schema), config.scenarioContext.body);
+    let valid = ajv.validate(JSON.parse(schema), config.scenarioContext.data);
     expect(valid).to.eql(true, JSON.stringify(ajv.errors, null, 2))
 });
 
 Then(/^I should have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/, async function (employeeName, email, gender, title, salary) {
 
-    await (expect(config.scenarioContext.body.employeeName).to.eql(employeeName));
-    await (expect(config.scenarioContext.body.emailId).to.eql(email));
-    await (expect(config.scenarioContext.body.gender).to.eql(gender));
-    await (expect(config.scenarioContext.body.title).to.eql(title));
-    await (expect(config.scenarioContext.body.currentSalary).to.eql(salary));
+    await (expect(config.scenarioContext.data.employeeName).to.eql(employeeName));
+    await (expect(config.scenarioContext.data.emailId).to.eql(email));
+    await (expect(config.scenarioContext.data.gender).to.eql(gender));
+    await (expect(config.scenarioContext.data.title).to.eql(title));
+    await (expect(config.scenarioContext.data.currentSalary).to.eql(salary));
 });
 
 When(/^the details for (.*) should no longer exist$/, async function (employeeName) {
 
     let options = {
-        uri: `${employeesBase}${employeesPath}/${employeeName}`,
-        json: true,
-        resolveWithFullResponse: true,
-        simple: false
+        url: `${employeesBase}${employeesPath}/${employeeName}`,
+        validateStatus: null
     };
 
     await sendRequest(this, config, options);
-    await (expect(config.scenarioContext.body.message).to.eql('Employee not found with employeeName ' + employeeName + ', note that employeeName is a case senstive field'));
+    await expect(config.scenarioContext.data.message).to.eql(`Employee not found with employeeName ${employeeName}, note that employeeName is a case senstive field`);
+
 });

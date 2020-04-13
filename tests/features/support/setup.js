@@ -1,4 +1,4 @@
-const rp = require('request-promise-native');
+const axios = require('axios');
 const argv = require('yargs').argv;
 const {employeesBase, employeesPath} = require('../../endpoints/endpoints.js');
 const { BeforeAll } = require('cucumber');
@@ -8,15 +8,12 @@ BeforeAll(async function () {
     if (argv.env !== 'mock') {
 
         let options = {
-            method: 'GET',
-            uri: `${employeesBase}${employeesPath}`,
-            json: true,
-            resolveWithFullResponse: true
+            url: `${employeesBase}${employeesPath}`
         };
 
-        await rp(options)
-            .then(function (parsedBody) {
-                employeesList = parsedBody.body;
+        await axios (options)
+            .then(function (response) {
+                employeesList = response.data;
             })
             .catch(function (err) {
                 throw new Error(err);
@@ -25,16 +22,22 @@ BeforeAll(async function () {
         for (let i = 0; i < employeesList.length; i++) {
 
             let options = {
-                method: 'DELETE',
-                uri: employeesBase + employeesPath + '/' + employeesList[i].employeeName,
-                json: true,
-                resolveWithFullResponse: true
+                method: 'delete',
+                url: employeesBase + employeesPath + '/' + employeesList[i].employeeName
             };
 
-            await rp(options)
-                .then({})
+            await axios(options)
+                .then(function(response){
+                    'Setup successfull!!'
+                })
                 .catch(function (err) {
-                    throw new Error(err);
+                    if(err.response){
+                        console.log('Employees deleted successfully');
+                    } else if (err.request){
+                        throw new Error(err.request);
+                    } else{
+                        throw new Error(err);
+                    }
                 });
         }
     }

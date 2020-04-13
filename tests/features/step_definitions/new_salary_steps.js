@@ -51,11 +51,9 @@ Given(/^I have an employee with details as (.*), (.*), (.*), (.*) and (-?\d+)$/,
     } else {
 
         let options = {
-            method: 'POST',
-            uri: `${employeesBase}${employeesPath}`,
-            body: config.createUserBody,
-            json: true,
-            resolveWithFullResponse: true
+            method: 'post',
+            url: `${employeesBase}${employeesPath}`,
+            data: config.createUserBody
         };
 
         await sendRequest(this, config, options);
@@ -75,25 +73,22 @@ Given(/^(.*) has received a performance rating of (-?\d+)$/, async function (emp
 When(/^I make a request to calculate the new salary$/, async function () {
 
     let options = {
-        uri: `${newSalaryBase}${newSalaryPath}`,
-        qs: queryParams,
-        headers:headers,
-        json: true,
-        resolveWithFullResponse: true
+        url: `${newSalaryBase}${newSalaryPath}?employeeName=${queryParams.employeeName}`,
+        headers:headers
     };
 
     await sendRequest(this, config, options);
 });
 
 Then(/^the new salary should be (-?\d+)$/, async function (expSalary) {
-    await (expect(config.scenarioContext.body.newSalary).to.eql(expSalary));
+    await (expect(config.scenarioContext.data.newSalary).to.eql(expSalary));
 });
 
-Then(/^the status should be (-?\d+)$/, async function (statusCode) {
-    expect(config.scenarioContext.statusCode).to.eql(statusCode);
+Then(/^the status should be (-?\d+)$/, async function (status) {
+    expect(config.scenarioContext.status).to.eql(status);
 });
 
 Then(/^the response should conform to the newSalary schema$/, async function () {
-    let valid = ajv.validate(JSON.parse(schema), config.scenarioContext.body);
+    let valid = ajv.validate(JSON.parse(schema), config.scenarioContext.data);
     expect(valid).to.eql(true, JSON.stringify(ajv.errors, null, 2))
 });

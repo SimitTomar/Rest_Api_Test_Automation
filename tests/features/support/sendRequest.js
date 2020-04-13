@@ -1,11 +1,11 @@
-const rp = require('request-promise-native');
 const expect = require('chai').expect;
+const axios = require('axios');
 
 module.exports = async function (self, config, options) {
 
-    await rp(options)
-        .then(function (parsedBody) {
-            config.scenarioContext = parsedBody;
+    await axios(options)
+        .then(function (response) {
+            config.scenarioContext = response;
         })
         .catch(function (err) {
             self.attach(JSON.stringify(options, null, 2), 'application/json');
