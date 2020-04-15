@@ -31,7 +31,7 @@ Reference [package.json] link
 
 ### Create Folder Structure required for the first Scenario
 
-- Add the below folders through VSCode's Folder icon
+* Add the below folders through VSCode's Folder icon
 tests
 tests-features-feature files
 tests-features-step-definitions
@@ -46,13 +46,11 @@ tests-features-step-definitions
 - Cucumber (Nodejs module for BDD, Gherkin Language)
 - Various keyword (Feature, Scenario, Given, When, Then, Examples and Background)
 
-### Add Cucumber Plugin for VSCode for and reload
+### Add Cucumber Plugin for VSCode and reload
 
 ### Hover over the steps and tell that the steps are undefined
 
-### Explain that this is just plain english but we need nodejs code for the m/c to understand. Run the Feature file through Cli and show the logs, explain why that is hapenning
-
-### Create employee.steps.js (to cater to employees.feature.  tell that its a best practise to add **steps** in the name)
+### Explain that this is just plain english but we need nodejs code for the m/c to understand. 
 
 ### Install Cucumber through npm install cucumber --save-dev command, cover the following aspecs:
 - npm install command
@@ -64,19 +62,45 @@ tests-features-step-definitions
 - npm module moduleName@latest command
 - Global vs Local installation
 
-### [Require] Cucumber is employees.js, explain that require is an inbuilt function of nodejs used to include modules that exist in separate files.  The basic functionality of require is that it reads a JavaScript file, executes the file, and then proceeds to return the exports object
+### High level walkthrough of node_modules folder
+
+### Run the Feature file through Cli and show the logs, explain why that is hapenning
+
+### Create employees.steps.js (to cater to employees.feature. Tell that its a best practise to add **steps** in the name)
+
+
+### [Require] Cucumber in employees.steps.js
+
+### Explain about const & let
+
+Explain that require is an inbuilt function of nodejs used to include modules that exist in separate files.  The basic functionality of require is that it reads a JavaScript file, executes the file, and then proceeds to return the exports object
 
 ### Now, Paste the signatures corresponding to the steps.
 
 ### Run again, the steps will pass, but tell that the API itself is not getting tested as of now
 
-### Introduce Axios at this point, show the website.
+----------------------Video 2-----------------------------
 
+### Introduce Axios at this point (Famous HTTP client for node.js with 8-9m weekly downloads, we'll use it to perform various CRUD operations and other stuff)
 
+### Install Axios through np i axios --save-dev
 
+### Require Axios in employees.steps.js
 
+### Copy Post Body from RestPanda and explain about **request options**
 
+### Explain a bit about the below in the second step:
+* async/await
+* axios function
+* then function
 
+### Explain a bit about Chai/Nodejs Assertion
+
+### Run only once all 3 are automated
+
+### Change name in the Feature File to fail the scenario
+
+### Rerun scripts and show failure
 
 
 [package.json]: 'https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/'
