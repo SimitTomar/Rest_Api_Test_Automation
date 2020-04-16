@@ -24,7 +24,7 @@ Given(/^I have a new employee with details as (.*), (.*), (.*), (.*) and (-?\d+)
         .build();
 });
 
-When(/^I make a request to add the employee$/, async function () {
+When(/^I make a request to create the employee$/, async function () {
 
     let options = {
         method: 'post',
@@ -36,7 +36,7 @@ When(/^I make a request to add the employee$/, async function () {
 
 });
 
-When(/^I make a request to get the employee details for (.*)$/, async function (employeeName) {
+When(/^I make a request to retrieve the employee details for (.*)$/, async function (employeeName) {
 
     let options = {
         url: `${employeesBase}${employeesPath}/${employeeName}?delay=1`,

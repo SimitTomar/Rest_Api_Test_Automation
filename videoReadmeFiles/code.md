@@ -1,8 +1,10 @@
-First Featur File
+
+
+First Feature File
 
 ```
 
-Feature: As an application Admin, I should be able to create a new application user
+Feature: As an application Admin, I should be able to create, retrieve, update and delete a user from the records
 
     Scenario: Add a new employee to the records
 
