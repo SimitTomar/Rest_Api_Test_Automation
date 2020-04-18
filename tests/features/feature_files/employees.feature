@@ -23,7 +23,7 @@ Feature: As an application Admin, I should be able to Create, Retrieve, Update &
             | Name  | Email_Id           | Gender | Title    | Current_Salary |
             | John  | John@TestZone.com  | male   | engineer | 60000          |
             | Mary  | Mary@TestZone.com  | female | manager  | 80000          |
-            | Peter | Peter@TestZone.com | male   | director | 100000          |
+            | Peter | Peter@TestZone.com | male   | director | 100000         |
 
     @get
     Scenario: Retrieve details of an employee

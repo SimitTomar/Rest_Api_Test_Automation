@@ -136,3 +136,28 @@ The keyword **await** makes JavaScript wait until that promise settles and retur
 ## Cucumber Intro before creating its Folder Structure
 ## Explanation of const
 ## Explanation of Destructuring
+
+
+
+# Date: 18-04 Pointers
+
+## Cucumber Section:
+* What is BDD & Cucumber (Theory in Github)
+* Preparing the Cucumber environment (Installation, Plugin)
+* Creating a Feature File for Calculator in Gherkin Language (Keywords, Tags, Examples, & Data Tables)
+* Creating a Step Definition File
+* CLI Commands (Tags, Feature Files, Json etc.)
+* Hooks
+
+## Framework Section:
+* Post API body to be changed to `employeeName created successfully`!! - Simit
+* Post API to handle arrays of employee objects (so that multiple employees can be added to the db) - Simit
+* Change Expected response for First Post Scenario - Simit
+* Remove Post Second Scenario - Simit
+* Add double quotes for Paramters in FF - Manish
+* Get: Add Second Scenario to showcase Data Table, Query Params, externalised response validation & deep equal - Manish
+* Finalise Builder Pattern - Simit
+* Builder Pattern: Add QP/Headers in employees and newSalary APIs - Manish
+* Look at Config File - Simit
+
+
