@@ -1,0 +1,25 @@
+{
+    "listOfManagers": [{
+            "_id": "5e9c43b92134a318c86b4450",
+            "gender": "female",
+            "title": "manager",
+            "currentSalary": 80000,
+            "employeeName": "Mary",
+            "emailId": "Mary@TestZone.com",
+            "__v": 0,
+            "createdAt": "2020-04-19T12:27:37.000Z",
+            "updatedAt": "2020-04-19T12:27:37.000Z"
+        },
+        {
+            "_id": "5e9c43b82134a318c86b444f",
+            "__v": 0,
+            "employeeName": "John",
+            "emailId": "John@TestZone.com",
+            "title": "manager",
+            "gender": "male",
+            "currentSalary": 78000,
+            "createdAt": "2020-04-19T12:27:36.991Z",
+            "updatedAt": "2020-04-19T12:27:36.991Z"
+        }
+    ]
+}
