@@ -156,7 +156,7 @@ The keyword **await** makes JavaScript wait until that promise settles and retur
 * Remove Post Second Scenario - Simit
 * Add double quotes for Paramters in FF - Manish
 * Get: Add Second Scenario to showcase Data Table, Query Params, externalised response validation & deep equal - Manish
-* Finalise Builder Pattern - Simit
+* Finalise Builder Pattern - Simit (Finalise the scenarios to showcase for Builder Pattern post this)
 * Builder Pattern: Add QP/Headers in employees and newSalary APIs - Manish
 * Look at Config File - Simit
 
