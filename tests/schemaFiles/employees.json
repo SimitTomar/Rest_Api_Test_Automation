@@ -1,84 +1,111 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "http://example.com/example.json",
-  "type": "object",
-  "readOnly": false,
-  "writeOnly": false,
-  "minProperties": 0,
-  "title": "The Root Schema",
-  "description": "The root schema comprises the entire JSON document.",
-  "additionalProperties": true,
-  "required": [
-      "employeeName",
-      "emailId",
-      "gender",
-      "title",
-      "currentSalary"
-  ],
-  "properties": {
-      "employeeName": {
-          "$id": "#/properties/employeeName",
-          "type": "string",
-          "readOnly": false,
-          "writeOnly": false,
-          "minLength": 0,
-          "title": "The Employeename Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": "",
-          "examples": [
-              "user001"
-          ]
-      },
-      "emailId": {
-          "$id": "#/properties/emailId",
-          "type": "string",
-          "readOnly": false,
-          "writeOnly": false,
-          "minLength": 0,
-          "title": "The Emailid Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": "",
-          "examples": [
-              "user001@TestZone.com"
-          ]
-      },
-      "gender": {
-          "$id": "#/properties/gender",
-          "type": "string",
-          "readOnly": false,
-          "writeOnly": false,
-          "minLength": 0,
-          "title": "The Gender Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": "",
-          "examples": [
-              "female"
-          ]
-      },
-      "title": {
-          "$id": "#/properties/title",
-          "type": "string",
-          "readOnly": false,
-          "writeOnly": false,
-          "minLength": 0,
-          "title": "The Title Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": "",
-          "examples": [
-              "director"
-          ]
-      },
-      "currentSalary": {
-          "$id": "#/properties/currentSalary",
-          "type": "integer",
-          "readOnly": false,
-          "writeOnly": false,
-          "title": "The Currentsalary Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": 0,
-          "examples": [
-              100000
-          ]
-      }
-  }
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "additionalProperties": true,
+    "required": [
+        "_id",
+        "employeeName",
+        "emailId",
+        "title",
+        "currentSalary",
+        "__v",
+        "createdAt",
+        "updatedAt"
+    ],
+    "properties": {
+        "_id": {
+            "$id": "#/properties/_id",
+            "type": "string",
+            "title": "The _id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "5e9c7e4842dad03efecae41e"
+            ]
+        },
+        "employeeName": {
+            "$id": "#/properties/employeeName",
+            "type": "string",
+            "title": "The Employeename Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Jude"
+            ]
+        },
+        "emailId": {
+            "$id": "#/properties/emailId",
+            "type": "string",
+            "title": "The Emailid Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Jude@TestZone.com"
+            ]
+        },
+        "gender": {
+            "$id": "#/properties/gender",
+            "type": "string",
+            "title": "The Gender Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "male"
+            ]
+        },
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string",
+            "title": "The Title Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "manager"
+            ]
+        },
+        "currentSalary": {
+            "$id": "#/properties/currentSalary",
+            "type": "integer",
+            "title": "The Currentsalary Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                80000.0
+            ]
+        },
+        "__v": {
+            "$id": "#/properties/__v",
+            "type": "integer",
+            "title": "The __v Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                0.0
+            ]
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "string",
+            "title": "The Createdat Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2020-04-19T16:37:28.915Z"
+            ]
+        },
+        "updatedAt": {
+            "$id": "#/properties/updatedAt",
+            "type": "string",
+            "title": "The Updatedat Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2020-04-19T16:37:28.915Z"
+            ]
+        }
+    }
 }

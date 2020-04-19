@@ -1,6 +1,6 @@
 const axios = require('axios');
-const argv = require('yargs').argv;
-const {employeesBase, employeesPath} = require('../../endpoints/endpoints.js');
+const { argv } = require('yargs');
+const { employeesBase, employeesPath } = require('../../endpoints/endpoints.js');
 const { BeforeAll } = require('cucumber');
 
 BeforeAll(async function () {
@@ -11,7 +11,7 @@ BeforeAll(async function () {
             url: `${employeesBase}${employeesPath}`
         };
 
-        await axios (options)
+        await axios(options)
             .then(function (response) {
                 employeesList = response.data;
             })
@@ -27,15 +27,15 @@ BeforeAll(async function () {
             };
 
             await axios(options)
-                .then(function(response){
+                .then(function () {
                     'Setup successfull!!'
                 })
                 .catch(function (err) {
-                    if(err.response){
+                    if (err.response) {
                         console.log('Employees deleted successfully');
-                    } else if (err.request){
+                    } else if (err.request) {
                         throw new Error(err.request);
-                    } else{
+                    } else {
                         throw new Error(err);
                     }
                 });

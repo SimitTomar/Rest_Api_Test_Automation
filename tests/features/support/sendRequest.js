@@ -1,11 +1,10 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const axios = require('axios');
 
-module.exports = async function (self, config, options) {
+module.exports = async function (self, options) {
 
     try {
-        const response = await axios(options);
-        config.scenarioContext = response;
+        self.response = await axios(options);
     } catch (err) {
         self.attach(JSON.stringify(options, null, 2), 'application/json');
         expect.fail(err);

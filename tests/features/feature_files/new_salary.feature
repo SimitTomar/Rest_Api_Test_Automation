@@ -5,8 +5,8 @@ Feature: As an application Admin, I should be able to calculate new salary of em
 @get
     Scenario: Calculate new salary of one employee
 
-        Given I have an employee with details as Jude, Jude@TestZone.com, male, manager and 80000
-        And Jude has received a performance rating of 4
+        Given I have an employee with details as "Jude", "Jude@TestZone.com", "male", "manager" and 80000
+        And "Jude" has received a performance rating of 4
         When I make a request to calculate the new salary
         Then the new salary should be 92000
         And the status should be 200
@@ -15,8 +15,8 @@ Feature: As an application Admin, I should be able to calculate new salary of em
 @get
     Scenario Outline: Calculate new salary of multiple employees
 
-        Given I have an employee with details as <Name>, <Email_Id>, <Gender>, <Title> and <Current_Salary>
-        And <Name> has received a performance rating of <Performance_Rating>
+        Given I have an employee with details as "<Name>", "<Email_Id>", "<Gender>", "<Title>" and <Current_Salary>
+        And "<Name>" has received a performance rating of <Performance_Rating>
         When I make a request to calculate the new salary
         Then the new salary should be <New_Salary>
         And the status should be 200
