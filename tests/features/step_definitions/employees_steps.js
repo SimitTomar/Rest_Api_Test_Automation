@@ -12,6 +12,7 @@ const sendRequest = require('../support/sendRequest');
 const expectedJsonResponses = fs.readFileSync('tests/expectedResponse/employees.json', 'utf8');
 
 Given('I have a new employee with details as {string}, {string}, {string}, {string} and {int}', async function (employeeName, email, gender, title, salary) {
+    
     this.createEmployeesBody = [new CreateUserBuilder()
         .populateDefaultFields()
         .withEmployeeName(employeeName)
