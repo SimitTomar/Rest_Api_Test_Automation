@@ -3,11 +3,19 @@
 Feature: As an application Admin, I should be able to Create, Retrieve, Update & Delete a new application user
 
     @post
-    Scenario: Create a new employee
+    Scenario: Validate that I should be able to create an employee by providing all the optional & mandatory fields 
 
         Given I have a new employee with details as "Kate", "Kate@TestZone.com", "female", "engineer" and 60000
         When I make a request to create the employee
         Then I should have a new employee created with name as "Kate"
+        And the status as 201
+
+    @post
+    Scenario: Validate that I should be able to create an employee by providing the mandatory fields only
+
+        Given I have a new employee with details as "Casey", "Casey@TestZone.com", "director" and 100000
+        When I make a request to create the employee
+        Then I should have a new employee created with name as "Casey"
         And the status as 201
 
     @get

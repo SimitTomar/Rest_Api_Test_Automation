@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Nodejs based Test Automation Framework for Testing of Rest APIs",
   "scripts": {
-    "mocha_test": "mocha tests_mocha --reporter mochawesome"
+    "mocha_test": "mocha tests_mocha --reporter mochawesome",
+    "test": "cucumber-js tests/features/**/*.feature"
   },
   "repository": {
     "type": "git",

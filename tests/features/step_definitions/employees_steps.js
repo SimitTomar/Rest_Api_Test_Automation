@@ -5,21 +5,30 @@ const { expect } = chai;
 const deepEqualInAnyOrder = require('deep-equal-in-any-order');
 const ajv = require('ajv')();
 const { employeesBase, employeesPath } = require('../../endpoints/endpoints.js');
-const schema = fs.readFileSync('tests/schemaFiles/employees.json', 'utf8');
+const schema = fs.readFileSync('tests/schema_files/employees.json', 'utf8');
 
-const CreateUserBuilder = require('../../builders/create_user_builder');
-const sendRequest = require('../support/sendRequest');
-const expectedJsonResponses = fs.readFileSync('tests/expectedResponse/employees.json', 'utf8');
+const EmployeesPostRequestBodyBuilder = require('../../builders/employees_request_body_builder');
+const sendRequest = require('../support/send_request');
+const expectedJsonResponses = fs.readFileSync('tests/expected_response/employees.json', 'utf8');
 
 Given('I have a new employee with details as {string}, {string}, {string}, {string} and {int}', async function (employeeName, email, gender, title, salary) {
     
-    this.createEmployeesBody = [new CreateUserBuilder()
-        .populateDefaultFields()
+    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
         .withEmployeeName(employeeName)
-        .withemailId(email)
-        .withgender(gender)
-        .withtitle(title)
-        .withcurrentSalary(salary)
+        .withEmailId(email)
+        .withGender(gender)
+        .withTitle(title)
+        .withCurrentSalary(salary)
+        .build()];
+});
+
+Given('I have a new employee with details as {string}, {string}, {string} and {int}', async function (employeeName, email, title, salary) {
+    
+    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
+        .withEmployeeName(employeeName)
+        .withEmailId(email)
+        .withTitle(title)
+        .withCurrentSalary(salary)
         .build()];
 });
 
@@ -27,14 +36,14 @@ When('I make a request to create the employee', async function () {
     let options = {
         method: 'post',
         url: `${employeesBase}${employeesPath}`,
-        data: this.createEmployeesBody
+        data: this.employeesPostRequestBody
     };
 
     await sendRequest(this, options);
 });
 
 Given('I make a request to create the following employees', async function (dataTable) {
-    this.createEmployeesBody = dataTable.hashes();
+    this.employeesPostRequestBody = dataTable.hashes();
 });
 
 When('I make a request to retrieve the employees with title as {string}', async function (title) {
@@ -58,12 +67,12 @@ When('I make a request to retrieve the employee details for {string}', async fun
 });
 
 When('I make a request to update the title of {string} to {string}', async function (employeeName, newTitle) {
-    this.createEmployeesBody[0].title = newTitle;
+    this.employeesPostRequestBody[0].title = newTitle;
 
     let options = {
         method: 'put',
         url: `${employeesBase}${employeesPath}/${employeeName}`,
-        data: this.createEmployeesBody[0]
+        data: this.employeesPostRequestBody[0]
     };
 
     await sendRequest(this, options);

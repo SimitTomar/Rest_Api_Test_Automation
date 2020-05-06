@@ -32,7 +32,7 @@ BeforeAll(async function () {
                 })
                 .catch(function (err) {
                     if (err.response) {
-                        console.log('Employees deleted successfully');
+                        //console.log('Employees deleted successfully');
                     } else if (err.request) {
                         throw new Error(err.request);
                     } else {

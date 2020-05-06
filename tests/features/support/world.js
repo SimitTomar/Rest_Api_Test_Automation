@@ -1,20 +1,20 @@
-const { setDefaultTimeout, setWorldConstructor } = require("cucumber");
+// const { setDefaultTimeout, setWorldConstructor } = require("cucumber");
 
-setDefaultTimeout(30 * 1000);
+// setDefaultTimeout(30 * 1000);
 
 // class CustomWorld {
-//     constructor(attach, parameters) {
+//     constructor() {
 //         this._response = null;
 //         this._createEmployeesBody = null;
 //         this.attach = attach
 //         this.parameters = parameters
 //     }
 
-//     set scenarioContext(newResponse) {
+//     set response(newResponse) {
 //         this._response = newResponse;
 //     }
 
-//     get scenarioContext() {
+//     get response() {
 //         return this._response;
 //     }
 

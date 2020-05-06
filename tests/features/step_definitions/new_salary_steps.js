@@ -7,20 +7,19 @@ const mockServerClient = require('mockserver-client').mockServerClient;
 
 
 const { employeesBase, employeesPath, newSalaryBase, newSalaryPath } = require('../../endpoints/endpoints.js');
-const schema = fs.readFileSync('tests/schemaFiles/newSalary.json', 'utf8');
+const schema = fs.readFileSync('tests/schema_files/newSalary.json', 'utf8');
 
-const CreateUserBuilder = require('../../builders/create_user_builder');
-const sendRequest = require('../support/sendRequest');
+const EmployeesPostRequestBodyBuilder = require('../../builders/employees_request_body_builder');
+const sendRequest = require('../support/send_request');
 
 
 Given('I have an employee with details as {string}, {string}, {string}, {string} and {int}', async function (employeeName, email, gender, title, salary) {
-    this.createEmployeesBody = [new CreateUserBuilder()
-        .populateDefaultFields()
+    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
         .withEmployeeName(employeeName)
-        .withemailId(email)
-        .withgender(gender)
-        .withtitle(title)
-        .withcurrentSalary(salary)
+        .withEmailId(email)
+        .withGender(gender)
+        .withTitle(title)
+        .withCurrentSalary(salary)
         .build()];
 
     if (argv.env == 'mock') {
@@ -32,7 +31,7 @@ Given('I have an employee with details as {string}, {string}, {string}, {string}
                 },
                 'httpResponse': {
                     'statusCode': 200,
-                    'body': this.createEmployeesBody[0],
+                    'body': this.employeesPostRequestBody[0],
                 },
                 'times': {
                     'remainingTimes': 1,
@@ -48,7 +47,7 @@ Given('I have an employee with details as {string}, {string}, {string}, {string}
         let options = {
             method: 'post',
             url: `${employeesBase}${employeesPath}`,
-            data: this.createEmployeesBody
+            data: this.employeesPostRequestBody
         };
 
         await sendRequest(this, options);
