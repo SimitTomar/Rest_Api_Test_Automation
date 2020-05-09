@@ -1,8 +1,8 @@
-const BaseBuilder = require('./base_builder');
-const data = require('../data/employees_request_body.json');
+const BaseBuilder = require('../base/base_builder');
+const data = require('../../data/employees.json').body;
 
-class CreateEmployeesRequestBodyBuilder extends BaseBuilder{
-    constructor () {
+class CreateEmployeesRequestBodyBuilder extends BaseBuilder {
+    constructor() {
         super(data);
         return this;
     }
@@ -32,7 +32,7 @@ class CreateEmployeesRequestBodyBuilder extends BaseBuilder{
         return this;
     }
 
-    withoutGender(){
+    withoutGender() {
         if (this.data.hasOwnProperty('gender')) {
             delete this.data.gender;
         }

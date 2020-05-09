@@ -9,7 +9,9 @@ const mockServerClient = require('mockserver-client').mockServerClient;
 const { employeesBase, employeesPath, newSalaryBase, newSalaryPath } = require('../../endpoints/endpoints.js');
 const schema = fs.readFileSync('tests/schema_files/newSalary.json', 'utf8');
 
-const EmployeesRequestBodyBuilder = require('../../builders/employees_request_body_builder');
+const EmployeesRequestBodyBuilder = require('../../builders/employees/request_body_builder');
+const NewSalaryQueryParamBuilder = require('../../builders/new_salary/queryParam_builder');
+const NewSalaryHeaderBuilder = require('../../builders/new_salary/header_builder');
 const sendRequest = require('../support/send_request');
 
 
@@ -55,19 +57,20 @@ Given('I have an employee with details as {string}, {string}, {string}, {string}
 });
 
 Given('{string} has received a performance rating of {int}', async function (employeeName, performanceRating) {
-    this.employeeName = employeeName;
-    this.performanceRating = performanceRating;
+    this.newSalaryQueryParams = new NewSalaryQueryParamBuilder()
+        .withEmployeeName(employeeName)
+        .build();
+
+    this.newSalaryHeaders = new NewSalaryHeaderBuilder()
+        .withPerformanceRating(performanceRating)
+        .build();
 });
 
 When('I make a request to calculate the new salary', async function () {
     let options = {
         url: `${newSalaryBase}${newSalaryPath}`,
-        headers: {
-            performanceRating: this.performanceRating
-        },
-        params: {
-            employeeName: this.employeeName
-        }
+        headers: this.newSalaryHeaders,
+        params: this.newSalaryQueryParams
     };
 
     await sendRequest(this, options);
