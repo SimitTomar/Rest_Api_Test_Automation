@@ -9,12 +9,12 @@ const mockServerClient = require('mockserver-client').mockServerClient;
 const { employeesBase, employeesPath, newSalaryBase, newSalaryPath } = require('../../endpoints/endpoints.js');
 const schema = fs.readFileSync('tests/schema_files/newSalary.json', 'utf8');
 
-const EmployeesPostRequestBodyBuilder = require('../../builders/employees_request_body_builder');
+const EmployeesRequestBodyBuilder = require('../../builders/employees_request_body_builder');
 const sendRequest = require('../support/send_request');
 
 
 Given('I have an employee with details as {string}, {string}, {string}, {string} and {int}', async function (employeeName, email, gender, title, salary) {
-    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
+    this.employeesRequestBody = [new EmployeesRequestBodyBuilder()
         .withEmployeeName(employeeName)
         .withEmailId(email)
         .withGender(gender)
@@ -31,7 +31,7 @@ Given('I have an employee with details as {string}, {string}, {string}, {string}
                 },
                 'httpResponse': {
                     'statusCode': 200,
-                    'body': this.employeesPostRequestBody[0],
+                    'body': this.employeesRequestBody[0],
                 },
                 'times': {
                     'remainingTimes': 1,
@@ -47,7 +47,7 @@ Given('I have an employee with details as {string}, {string}, {string}, {string}
         let options = {
             method: 'post',
             url: `${employeesBase}${employeesPath}`,
-            data: this.employeesPostRequestBody
+            data: this.employeesRequestBody
         };
 
         await sendRequest(this, options);

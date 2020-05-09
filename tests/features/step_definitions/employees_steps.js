@@ -7,13 +7,13 @@ const ajv = require('ajv')();
 const { employeesBase, employeesPath } = require('../../endpoints/endpoints.js');
 const schema = fs.readFileSync('tests/schema_files/employees.json', 'utf8');
 
-const EmployeesPostRequestBodyBuilder = require('../../builders/employees_request_body_builder');
+const EmployeesRequestBodyBuilder = require('../../builders/employees_request_body_builder');
 const sendRequest = require('../support/send_request');
 const expectedJsonResponses = fs.readFileSync('tests/expected_response/employees.json', 'utf8');
 
 Given('I have a new employee with details as {string}, {string}, {string}, {string} and {int}', async function (employeeName, email, gender, title, salary) {
     
-    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
+    this.employeesRequestBody = [new EmployeesRequestBodyBuilder()
         .withEmployeeName(employeeName)
         .withEmailId(email)
         .withGender(gender)
@@ -24,29 +24,34 @@ Given('I have a new employee with details as {string}, {string}, {string}, {stri
 
 Given('I have a new employee with details as {string}, {string}, {string} and {int}', async function (employeeName, email, title, salary) {
     
-    this.employeesPostRequestBody = [new EmployeesPostRequestBodyBuilder()
+    this.employeesRequestBody = [new EmployeesRequestBodyBuilder()
         .withEmployeeName(employeeName)
         .withEmailId(email)
         .withTitle(title)
         .withCurrentSalary(salary)
+        .withoutGender()
         .build()];
+
+
+    console.log('body', this.employeesRequestBody);
 });
 
 When('I make a request to create the employee', async function () {
     let options = {
         method: 'post',
         url: `${employeesBase}${employeesPath}`,
-        data: this.employeesPostRequestBody
+        data: this.employeesRequestBody
     };
 
     await sendRequest(this, options);
 });
 
 Given('I make a request to create the following employees', async function (dataTable) {
-    this.employeesPostRequestBody = dataTable.hashes();
+    this.employeesRequestBody = dataTable.hashes();
 });
 
 When('I make a request to retrieve the employees with title as {string}', async function (title) {
+    
     let options = {
         method: 'get',
         url: `${employeesBase}${employeesPath}/`,
@@ -67,12 +72,12 @@ When('I make a request to retrieve the employee details for {string}', async fun
 });
 
 When('I make a request to update the title of {string} to {string}', async function (employeeName, newTitle) {
-    this.employeesPostRequestBody[0].title = newTitle;
+    this.employeesRequestBody[0].title = newTitle;
 
     let options = {
         method: 'put',
         url: `${employeesBase}${employeesPath}/${employeeName}`,
-        data: this.employeesPostRequestBody[0]
+        data: this.employeesRequestBody[0]
     };
 
     await sendRequest(this, options);
