@@ -2,3 +2,4 @@
 node_modules
 Archive
 rest-api-framework
+.DS_Store
