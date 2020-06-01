@@ -3,3 +3,5 @@ tests/reports/**/*.html
 tests/reports/**/*.json
 node_modules
 *.jar
+tests_cucumber/features/.DS_Store
+tests_cucumber/.DS_Store
